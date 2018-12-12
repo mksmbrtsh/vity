@@ -18,8 +18,8 @@ def start(bot, update):
 
 def dem(bot, update):
     try:
-        params = {'timeout': 100, 'offset': None}
-        res = requests.get("http://demotivation.me/", timeout)
+        params = {'timeout': 500, 'offset': None}
+        res = requests.get("http://demotivation.me/", params)
         html_page = res.content
         soup = BeautifulSoup(html_page, 'html.parser')
         b = soup.findAll("a")
@@ -103,12 +103,12 @@ def vity(bot, update):
       update.message.reply_text(answer[1:len(answer)])
   if "дем" in text:
       try:
-            params = {'timeout': 100, 'offset': None}
+            params = {'timeout': 500, 'offset': None}
             res = requests.get("http://demotivation.me/", params)
             html_page = res.content
             soup = BeautifulSoup(html_page)
             b = soup.findAll("img")
-            i = random.randint(0,36)
+            i = random.randint(0,30)
             h=b[i]['src']
             update.message.reply_photo("http://demotivation.me" +"/images" + h[7:len(h)])
       except Exception as e:
