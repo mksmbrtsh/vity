@@ -151,8 +151,7 @@ def vity(bot, update):
             s_city1 = s_city1[0: len(s_city1)-1]
     appid = "805f4a6eb937d5eada7f94f42b798a03"
     try:
-        params = {'timeout': 100, 'offset': None}
-        res = requests.get("http://api.openweathermap.org/data/2.5/find", params={'q': s_city1, 'type': 'like', 'units': 'metric', 'lang': 'ru', 'APPID': appid}, params)
+        res = requests.get("http://api.openweathermap.org/data/2.5/find", params={'q': s_city1, 'type': 'like', 'units': 'metric', 'lang': 'ru', 'APPID': appid})
         data = res.json()
         if len(c) ==1:
           s_city = "Москве"
