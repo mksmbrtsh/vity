@@ -18,8 +18,7 @@ def start(bot, update):
 
 def dem(bot, update):
     try:
-        params = {'timeout': 500, 'offset': None}
-        res = requests.get("http://demotivation.me/", params)
+        res = requests.get("http://demotivation.me/")
         html_page = res.content
         soup = BeautifulSoup(html_page, 'html.parser')
         b = soup.findAll("a")
@@ -103,8 +102,7 @@ def vity(bot, update):
       update.message.reply_text(answer[1:len(answer)])
   if "дем" in text:
       try:
-            params = {'timeout': 500, 'offset': None}
-            res = requests.get("http://demotivation.me/", params)
+            res = requests.get("http://demotivation.me/")
             html_page = res.content
             soup = BeautifulSoup(html_page)
             b = soup.findAll("img")
