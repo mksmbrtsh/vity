@@ -17,13 +17,17 @@ def start(bot, update):
       update.message.reply_text("Не ждали?!")
 
 def dem(bot, update):
-  res = requests.get("http://demotivation.me/")
-  html_page = res.content
-  soup = BeautifulSoup(html_page, 'html.parser')
-  b = soup.findAll("a")
-  h=b[4].findAll("img")[0]['src']
-  update.message.reply_photo("http://demotivation.me" +"/images" + h[7:len(h)])
-
+    try:
+        params = {'timeout': 100, 'offset': None}
+        res = requests.get("http://demotivation.me/", timeout)
+        html_page = res.content
+        soup = BeautifulSoup(html_page, 'html.parser')
+        b = soup.findAll("a")
+        h=b[4].findAll("img")[0]['src']
+        update.message.reply_photo("http://demotivation.me" +"/images" + h[7:len(h)])
+    except Exception as e:
+        print("Exception (find):", e)
+    pass
 def vity(bot, update):
   if update.message.date.date() != datetime.datetime.now().date():
     return
@@ -98,17 +102,27 @@ def vity(bot, update):
   if len(answer) > 1 and "погод" not in text:
       update.message.reply_text(answer[1:len(answer)])
   if "дем" in text:
-        res = requests.get("http://demotivation.me/")
-        html_page = res.content
-        soup = BeautifulSoup(html_page)
-        b = soup.findAll("img")
-        i = random.randint(0,36)
-        h=b[i]['src']
-        update.message.reply_photo("http://demotivation.me" +"/images" + h[7:len(h)])   
+      try:
+            params = {'timeout': 100, 'offset': None}
+            res = requests.get("http://demotivation.me/", params)
+            html_page = res.content
+            soup = BeautifulSoup(html_page)
+            b = soup.findAll("img")
+            i = random.randint(0,36)
+            h=b[i]['src']
+            update.message.reply_photo("http://demotivation.me" +"/images" + h[7:len(h)])
+      except Exception as e:
+        print("Exception (find):", e)
+      pass
   if "курс" in text:
-      res = requests.get("https://www.sberbank.ru/portalserver/proxy/?pipe=shortCachePipe&url=http%3A%2F%2Flocalhost%2Frates-web%2FrateService%2Frate%2Fcurrent%3FregionId%3D77%26rateCategory%3Dbase%26currencyCode%3D840")
-      j = json.loads(res.text)
-      update.message.reply_text("Про доллар. На сайте у грефа показывается(0-999$):\nпокупка " + str(j["base"]["840"]["0"]["buyValuePrev"]) +", продажа " + str(j["base"]["840"]["0"]["sellValuePrev"]) + "\nПо факту греф сейчас делает(0-999$):\nпокупка " + str(j["base"]["840"]["0"]["buyValue"]) + ", продажа " + str(j["base"]["840"]["0"]["sellValue"]))
+      try:
+        params = {'timeout': 100, 'offset': None}
+        res = requests.get("https://www.sberbank.ru/portalserver/proxy/?pipe=shortCachePipe&url=http%3A%2F%2Flocalhost%2Frates-web%2FrateService%2Frate%2Fcurrent%3FregionId%3D77%26rateCategory%3Dbase%26currencyCode%3D840", params)
+        j = json.loads(res.text)
+        update.message.reply_text("Про доллар. На сайте у грефа показывается(0-999$):\nпокупка " + str(j["base"]["840"]["0"]["buyValuePrev"]) +", продажа " + str(j["base"]["840"]["0"]["sellValuePrev"]) + "\nПо факту греф сейчас делает(0-999$):\nпокупка " + str(j["base"]["840"]["0"]["buyValue"]) + ", продажа " + str(j["base"]["840"]["0"]["sellValue"]))
+      except Exception as e:
+        print("Exception (find):", e)
+      pass
   if "погод" in text:
     s_city= ""
     s_city1 = ""
@@ -137,7 +151,8 @@ def vity(bot, update):
             s_city1 = s_city1[0: len(s_city1)-1]
     appid = "805f4a6eb937d5eada7f94f42b798a03"
     try:
-        res = requests.get("http://api.openweathermap.org/data/2.5/find", params={'q': s_city1, 'type': 'like', 'units': 'metric', 'lang': 'ru', 'APPID': appid})
+        params = {'timeout': 100, 'offset': None}
+        res = requests.get("http://api.openweathermap.org/data/2.5/find", params={'q': s_city1, 'type': 'like', 'units': 'metric', 'lang': 'ru', 'APPID': appid}, params)
         data = res.json()
         if len(c) ==1:
           s_city = "Москве"
@@ -153,9 +168,6 @@ def vity(bot, update):
     except Exception as e:
         print("Exception (find):", e)
     pass
-  
-
-
 def main():
   # Create Updater object and attach dispatcher to it
   
