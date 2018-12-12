@@ -18,7 +18,8 @@ def start(bot, update):
 
 def dem(bot, update):
     try:
-        res = requests.get("http://demotivation.me/")
+        params = {'timeout': 20000, 'offset': None}
+        res = requests.get("http://demotivation.me/", params)
         html_page = res.content
         soup = BeautifulSoup(html_page, 'html.parser')
         b = soup.findAll("a")
@@ -102,9 +103,10 @@ def vity(bot, update):
       update.message.reply_text(answer[1:len(answer)])
   if "дем" in text:
       try:
-            res = requests.get("http://demotivation.me/")
+            params = {'timeout': 20000, 'offset': None}
+            res = requests.get("http://demotivation.me/", params)
             html_page = res.content
-            soup = BeautifulSoup(html_page)
+            soup = BeautifulSoup(html_page, 'html.parser')
             b = soup.findAll("img")
             i = random.randint(0,30)
             h=b[i]['src']
@@ -167,12 +169,12 @@ def vity(bot, update):
     pass
 def main():
   # Create Updater object and attach dispatcher to it
-  PORT = int(os.environ.get('PORT', '8443'))
+  #PORT = int(os.environ.get('PORT', '8443'))
   updater = Updater('764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo')
-  updater.start_webhook(listen="0.0.0.0",
-                      port=PORT,
-                      url_path='764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo')
-  updater.bot.set_webhook("https://floating-castle-58368.herokuapp.com/764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo")
+  #updater.start_webhook(listen="0.0.0.0",
+  #                    port=PORT,
+  #                    url_path='764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo')
+  #updater.bot.set_webhook("https://floating-castle-58368.herokuapp.com/764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo")
   dispatcher = updater.dispatcher
   print("Bot started")
   # Add command handler to dispatcher
