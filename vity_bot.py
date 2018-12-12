@@ -8,7 +8,7 @@ morph = pymorphy2.MorphAnalyzer()
 import datetime
 datetime.datetime.now()
 import json
-
+import os
 def start(bot, update):
   i = random.randint(0,1)
   if i == 1:
@@ -169,7 +169,12 @@ def vity(bot, update):
     pass
 def main():
   # Create Updater object and attach dispatcher to it
+  PORT = int(os.environ.get('PORT', '8443'))
   updater = Updater('764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo')
+  updater.start_webhook(listen="0.0.0.0",
+                      port=PORT,
+                      url_path='764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo')
+  updater.bot.set_webhook("https://floating-castle-58368.herokuapp.com/764873983:AAH3IHus1g6kQCkmqaApTBfFZbvCEoOe-wo")
   dispatcher = updater.dispatcher
   print("Bot started")
   # Add command handler to dispatcher
