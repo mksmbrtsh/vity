@@ -37,6 +37,8 @@ def vity(bot, update):
       answer +=" Тьфу бля!"
   if "вод" in text:
       answer +=" Воды-то нету!"
+  if "исходники" in text:
+      answer +=" Я не умею использовать гит, но мои исходники лежат тут: https://github.com/mksmbrtsh/vity"
   if "чаю" in text or "чай" in text:
       i = random.randint(0,1)
       if i == 1:
