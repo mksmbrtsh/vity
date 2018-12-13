@@ -9,7 +9,10 @@ import datetime
 datetime.datetime.now()
 import json
 import os
+talk = True
+
 def start(bot, update):
+  talk = true
   i = random.randint(0,1)
   if i == 1:
       update.message.reply_text("Утро недоброе!")
@@ -32,7 +35,17 @@ def vity(bot, update):
   if update.message.date.date() != datetime.datetime.now().date():
     return
   text = update.message.text.lower()
+  if talk == False:
+      return
   answer = "";
+  if "витя" in text:
+      talk = true
+      update.message.reply_text(" Не ждали?!")
+  if "заткнись" in text or "замолчи" in text or "затухни" in text or "спать" in text:
+      talk = false
+      answer += " *молчит*"
+  if "stop" in text:
+      answer += " Ты правда так думаешь? Ты документацию-то читал вообще?"
   if "надо" in text:
       answer += " Нам это не надо!"
   if "знаю" in text:
@@ -48,7 +61,7 @@ def vity(bot, update):
       if i == 1:
           answer +=" Всю воду выпили, сосуны!"
       else:
-          answer +="*молча паяет чайник*"
+          answer +=" *молча паяет чайник*"
   if "програм" in text:
       answer +=" Конечно, я тут больше всех программирую!"
   if "окно" in text or "проветри" in text:
@@ -57,14 +70,18 @@ def vity(bot, update):
       answer +=" *удаляет терминал из администратора*"
   if "10" in text or "десять" in text:
       answer +=" Ваша виндос - говно!"
-  if "вит" in text or "вик" in text:
+  if "витя" in text or "вик" in text:
       i = random.randint(0,1)
       if i == 1:
           answer +=" Мы с тобой не наравных!"
       else:
           answer +=" Ты оборзел!"
   if "тест" in text:
-      answer += " Тебе надо поиспражняться."
+      i = random.randint(0,1)
+      if i == 1:
+        answer += " Тебе надо поиспражняться."
+      else:
+        answer += " Чистить надо пердически"
   if "морф" in text:
       
       t = text[text.index("морф",0, len(text)) + 5: len(text)]
