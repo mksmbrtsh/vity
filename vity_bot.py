@@ -9,10 +9,10 @@ import datetime
 datetime.datetime.now()
 import json
 import os
-talk = True
+talk = 1
 
 def start(bot, update):
-  talk = true
+  talk = 1
   i = random.randint(0,1)
   if i == 1:
       update.message.reply_text("Утро недоброе!")
@@ -35,14 +35,14 @@ def vity(bot, update):
   if update.message.date.date() != datetime.datetime.now().date():
     return
   text = update.message.text.lower()
-  if talk == False:
-      return
   answer = "";
   if "витя" in text:
-      talk = true
+      talk = 1
       update.message.reply_text(" Не ждали?!")
+  if talk == 0:
+      return
   if "заткнись" in text or "замолчи" in text or "затухни" in text or "спать" in text:
-      talk = false
+      talk = 0
       answer += " *молчит*"
   if "stop" in text:
       answer += " Ты правда так думаешь? Ты документацию-то читал вообще?"
