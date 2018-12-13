@@ -36,9 +36,10 @@ def vity(bot, update):
     return
   text = update.message.text.lower()
   answer = "";
+  global talk
   if "витя" in text:
       talk = 1
-      update.message.reply_text(" Не ждали?!")
+      answer += " Не ждали?!"
   if talk == 0:
       return
   if "заткнись" in text or "замолчи" in text or "затухни" in text or "спать" in text:
